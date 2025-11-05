@@ -13,22 +13,22 @@
 
 using Oceananigans.Grids: XYRegularRG, XZRegularRG, YZRegularRG, XYZRegularRG, regular_dimensions, stretched_dimensions
 
-function plan_forward_transform(A::Array, ::Periodic, dims, planner_flag=FFTW.ESTIMATE)
+function plan_forward_transform(A::Array, ::Periodic, dims, planner_flag=FFTW.PATIENT)
     length(dims) == 0 && return nothing
     return FFTW.plan_fft!(A, dims, flags=planner_flag)
 end
 
-function plan_forward_transform(A::Array, ::Bounded, dims, planner_flag=FFTW.ESTIMATE)
+function plan_forward_transform(A::Array, ::Bounded, dims, planner_flag=FFTW.PATIENT)
     length(dims) == 0 && return nothing
     return FFTW.plan_r2r!(A, FFTW.REDFT10, dims, flags=planner_flag)
 end
 
-function plan_backward_transform(A::Array, ::Periodic, dims, planner_flag=FFTW.ESTIMATE)
+function plan_backward_transform(A::Array, ::Periodic, dims, planner_flag=FFTW.PATIENT)
     length(dims) == 0 && return nothing
     return FFTW.plan_ifft!(A, dims, flags=planner_flag)
 end
 
-function plan_backward_transform(A::Array, ::Bounded, dims, planner_flag=FFTW.ESTIMATE)
+function plan_backward_transform(A::Array, ::Bounded, dims, planner_flag=FFTW.PATIENT)
     length(dims) == 0 && return nothing
     return FFTW.plan_r2r!(A, FFTW.REDFT01, dims, flags=planner_flag)
 end

@@ -56,7 +56,7 @@ const InhomogeneousYFormulation = InhomogeneousFormulation{<:YDirection}
 const InhomogeneousZFormulation = InhomogeneousFormulation{<:ZDirection}
 
 """
-    FourierTridiagonalPoissonSolver(grid, planner_flag = FFTW.PATIENT; tridiagonal_formulation=nothing)
+    FourierTridiagonalPoissonSolver(grid, planner_flag = FFTW.ESTIMATE; tridiagonal_formulation=nothing)
 
 Construct a `FourierTridiagonalPoissonSolver` on `grid` with `tridiagonal_formulation` either
 `XDirection()`, `YDirection()`, or `ZDirection()`. The `tridiagonal_formulation` can be used to tweak
@@ -83,7 +83,7 @@ The (possibly perturbed) Poisson equation is solved with an FFT-based eigenfunct
 augmented by a tridiagonal solve in the tridiagonal direction.
 The non-tridiagonal-directions must be uniformly spaced.
 """
-function FourierTridiagonalPoissonSolver(grid, planner_flag=FFTW.PATIENT; tridiagonal_formulation=nothing)
+function FourierTridiagonalPoissonSolver(grid, planner_flag=FFTW.ESTIMATE; tridiagonal_formulation=nothing)
 
     # Try to guess what direction should be tridiagonal
     if isnothing(tridiagonal_formulation)

@@ -33,7 +33,7 @@ Base.show(io::IO, solver::FFTBasedPoissonSolver) =
               "    └── backward: ", transform_list_str(solver.transforms.backward))
 
 """
-    FFTBasedPoissonSolver(grid, planner_flag=FFTW.PATIENT)
+    FFTBasedPoissonSolver(grid, planner_flag=FFTW.ESTIMATE)
 
 Return an `FFTBasedPoissonSolver` that solves the "generalized" Poisson equation,
 
@@ -49,7 +49,7 @@ elements (typically the same type as `solver.storage`).
 
 See [`solve!`](@ref) for more information about the FFT-based Poisson solver algorithm.
 """
-function FFTBasedPoissonSolver(grid, planner_flag=FFTW.PATIENT)
+function FFTBasedPoissonSolver(grid, planner_flag=FFTW.ESTIMATE)
     topo = (TX, TY, TZ) =  topology(grid)
 
     λx = poisson_eigenvalues(grid.Nx, grid.Lx, 1, TX())
